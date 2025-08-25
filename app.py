@@ -67,14 +67,14 @@ def delete_task(id):
     for t in tasks:
         if t.id == id:
             task = t
-    print(task)
+            break 
+    
     if task == None:
         return jsonify({"message": "We were unable to find this task."}), 404
     
-    data = request.get_json()
     
-    tasks.pop(id)
-    print(task)
+    tasks.remove(task)
+    
     return jsonify({"message": "Task has been deleted"})
 
 if __name__ == "__main__":
