@@ -31,3 +31,31 @@ def test_get_tasks():
 
     assert "tasks" in response_json
     assert "total_tasks" in response_json
+
+def test_get_task():
+    if tasks:
+        task_id = tasks[0]
+        response = requests.get(f"{BASE_URL}/tasks/{task_id}")
+
+        assert response.status_code == 200
+        response_json = response.json()
+        assert task_id == response_json['id']
+
+# Update 
+def test_update_task():
+    if tasks:
+        task_id = tasks[0]
+        payload = {
+             "completed": True,
+            "description": "study much harder",
+            "id": 1,
+            "title": "Title updated"
+        }
+
+        response = requests.put(f"{BASE_URL}/tasks/{task_id}", json=payload)
+
+        response.status_code == 200
+        response_json = response.json()
+
+        assert "message" in response_json
+        
